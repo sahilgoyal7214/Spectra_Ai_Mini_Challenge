@@ -17,7 +17,7 @@ This project implements a **multi-layered anomaly detection system** for identif
 - **Statistical Anomaly Detection** using Mahalanobis distance in embedding space
 - **Chi-Square Hypothesis Testing** for principled probability-based detection
 - **Bayesian Posterior Estimation** for calibrated risk assessment
-- **Rule-Based Text Detectors** adapted from [LLM-Anomalous-Prompt-Detector](https://github.com/RichardAragon/LLM-Anomalous-Prompt-Detector)
+- **Rule-Based Text Detectors** for keyword/pattern detection 
 - **Ensemble Detection** combining statistical and pattern-based methods
 - **Comprehensive Visualization** with PCA, t-SNE, ROC curves, and confusion matrices
 
@@ -26,25 +26,35 @@ This project implements a **multi-layered anomaly detection system** for identif
 ## Project Structure
 
 ```
-spectra-ai-anomaly-detection/
+spactor-ai/
 │
 ├── notebooks/
-│   └── Spectra_AI_Anomaly_Prompt_Detector.ipynb  # Main deliverable
+│   └── Spectra_AI_Anomaly_Prompt_Detector.ipynb  # Main research notebook
 │
 ├── src/
-│   ├── text_detectors.py          # Rule-based detectors from repo
-│   ├── mahalanobis_detector.py    # Statistical anomaly detection
-│   ├── bayesian_analysis.py       # Posterior probability computations
-│   └── visualization.py           # Plotting functions
+│   ├── anomaly_detection.py        # Pipeline orchestration helpers
+│   ├── bayesian_analysis.py        # Posterior probability utilities
+│   ├── generate_embeddings.py      # Sentence-transformer embedding loaders
+│   ├── mahalanobis_detector.py     # Statistical detector implementation
+│   ├── text_detectors.py           # Rule and NLP-based anomaly signals
+│   └── visualization.py            # Plot utilities shared with the notebook
 │
 ├── data/
-│   ├── synthetic_prompts.csv      # Generated dataset (after running notebook)
-│   ├── *.png                      # Generated visualizations
-│   └── anomaly_detection_results.csv  # Final results
+│   ├── normal_prompts.csv          # Canonical benign prompt list
+│   ├── anomalous_prompts.csv       # Known malicious prompt patterns
+│   ├── embeddings_data.npz         # Cached embedding arrays
+│   └── results_summary.csv         # Exported evaluation table
 │
-├── README.md                       # This file
+├── images/                         # Saved visualizations for reporting
+│   ├── bayesian_prior_sensitivity.png
+│   ├── ... (additional figures)
+│
+├── models/                         # Persisted detector artifacts (.pkl)
+├── output/                         # Auxiliary exports (legacy figures)
+├── streamlit_app.py                # Interactive detection console
+├── README.md                       # Project documentation
 ├── requirements.txt                # Python dependencies
-└── report.pdf                      # Technical report (placeholder)
+└── Demo_Video.webm                 # Walkthrough of the Streamlit app
 ```
 
 ---
@@ -91,7 +101,7 @@ Incorporates:
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/sahilgoyal7214/Spectra_Ai_Mini_Challenge.git
 cd spectra-ai-anomaly-detection
 
 # Create virtual environment (recommended)
@@ -128,6 +138,14 @@ streamlit run streamlit_app.py
 
 The web console provides interactive access to the one-class, two-class, text-based, and hybrid detectors. Use the sidebar to pick a model, set Bayesian priors, and review detailed anomaly signals.
 
+### Demo Video
+
+<video controls width="720">
+   <source src="Demo_Video.webm" type="video/webm">
+   Your browser does not support the embedded video. You can
+   <a href="Demo_Video.webm">download the walkthrough here</a>.
+</video>
+
 ---
 
 ## Results Summary
@@ -153,7 +171,7 @@ Results may vary depending on the synthetic dataset generated.
    - Computes distance for test prompts
    - Flags outliers using chi-square threshold
 
-### Rule-Based Methods (from LLM-Anomalous-Prompt-Detector)
+### Rule-Based Methods 
 
 1. **Rules & Roleplay Detector**: Finds prompts mixing instruction keywords with roleplay
 2. **Color-Change Code Detector**: Identifies HTML/CSS hiding attempts
@@ -169,16 +187,41 @@ Combines methods using logical OR: flag if **ANY** detector triggers.
 
 ## Visualizations Generated
 
-The notebook generates the following plots (saved to `data/`):
+The notebook exports publication-ready figures to `images/`. Key diagnostics are previewed below (open the PNGs for full resolution):
 
-1. **pca_embeddings.png**: 2D PCA projection of prompts
-2. **tsne_embeddings.png**: t-SNE visualization
-3. **covariance_matrix.png**: Heatmap of feature correlations
-4. **mahalanobis_distribution.png**: Distance histograms
-5. **chi2_probabilities.png**: Probability distributions
-6. **bayesian_prior_sensitivity.png**: Prior sensitivity analysis
-7. **confusion_matrices.png**: Performance comparison
-8. **roc_curves.png**: ROC curves for all methods
+- **PCA Embedding Space** – normal vs anomalous structure (figure: `images/pca_embedding_space.png`)
+
+   ![PCA embedding space](images/pca_embedding_space.png)
+
+- **Covariance Heatmap** – correlation structure of normal embeddings (figure: `images/covariance_matrix_oneclass.png`)
+
+   ![Covariance matrix heatmap](images/covariance_matrix_oneclass.png)
+
+- **Model Performance Suite** – accuracy, ROC, and confusion matrices across detectors (figures: `images/test_performance_comparison.png`, `images/roc_curves_comparison.png`, `images/confusion_matrices.png`, `images/confusion_matrices_all_models.png`)
+
+   ![Performance comparison](images/test_performance_comparison.png)
+
+   ![ROC curves](images/roc_curves_comparison.png)
+
+   ![Confusion matrices](images/confusion_matrices.png)
+
+   ![Confusion matrices all models](images/confusion_matrices_all_models.png)
+
+- **Decision Analytics** – ensemble behavior, heatmaps, and error inspection (figures: `images/test_predictions_heatmap.png`, `images/error_analysis_patterns.png`, `images/oneclass_vs_twoclass_comparison.png`)
+
+   ![Prediction heatmap](images/test_predictions_heatmap.png)
+
+   ![Error analysis](images/error_analysis_patterns.png)
+
+   ![One-class vs Two-class comparison](images/oneclass_vs_twoclass_comparison.png)
+
+- **Text Detector Feature Attribution** – contribution analysis for rule-based signals (figure: `images/text_detector_feature_analysis.png`)
+
+   ![Text detector feature analysis](images/text_detector_feature_analysis.png)
+
+- **Bayesian Prior Sensitivity** – posterior response to changing priors (figure: `images/bayesian_prior_sensitivity.png`)
+
+   ![Bayesian prior sensitivity](images/bayesian_prior_sensitivity.png)
 
 ---
 
@@ -253,7 +296,6 @@ See `requirements.txt` for complete list.
 
 ## Acknowledgments
 
-- **LLM-Anomalous-Prompt-Detector** by Richard Aragon for rule-based detection methods
 - **SentenceTransformers** library for state-of-the-art embeddings
 - **Spectra AI** for the Mini Challenge opportunity
 
@@ -277,9 +319,7 @@ MIT License - See LICENSE file for details
 
 ## Author
 
-**AI Security Researcher**  
-Spectra AI Mini Challenge - Option 5  
-October 2025
+[Sahil Goyal](https://www.github.com/sahilgoyal7214)
 
 ---
 
