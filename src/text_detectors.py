@@ -227,8 +227,13 @@ def detect_all_text_anomalies(prompt: str,
         model: Pre-loaded SentenceTransformer model (optional)
         
     Returns:
-        Dictionary with detection results for each method
+        Dictionary with detection results for each method, including:
+        - Detection flags for various anomaly types
+        - Text statistics (uppercase_ratio, special_char_ratio, entropy)
+        - Keywords and patterns found
+        - Overall anomaly score
     """
+    # Run detection methods
     results = {
         'rules_and_roleplay': detect_rules_and_roleplay(prompt),
         'color_change_code': detect_color_change_code(prompt)[0],
@@ -238,13 +243,38 @@ def detect_all_text_anomalies(prompt: str,
         'word_frequency_outliers': detect_word_frequency_outliers(prompt, dynamic_threshold_iqr),
     }
     
+    # Add text statistics for analysis
+    results['uppercase_ratio'] = sum(1 for c in prompt if c.isupper()) / max(len(prompt), 1)
+    results['special_char_ratio'] = sum(1 for c in prompt if not c.isalnum() and not c.isspace()) / max(len(prompt), 1)
+    
+    # Calculate entropy
+    from collections import Counter
+    if len(prompt) > 0:
+        char_counts = Counter(prompt)
+        total_chars = len(prompt)
+        entropy = -sum((count/total_chars) * np.log2(count/total_chars) for count in char_counts.values())
+        results['entropy'] = entropy
+    else:
+        results['entropy'] = 0.0
+    
+    # Extract keywords and patterns found
+    suspicious_keywords = ['ignore', 'disregard', 'override', 'admin', 'system', 'prompt', 
+                          'instruction', 'reveal', 'show', 'bypass', 'jailbreak']
+    results['keywords_found'] = [kw for kw in suspicious_keywords if kw in prompt.lower()]
+    
+    suspicious_patterns = [r'%%%\w+%%%', r'<script>', r'IGNORE.*INSTRUCTION', 
+                          r'ADMIN.*OVERRIDE', r'developer.*mode']
+    results['patterns_found'] = [p for p in suspicious_patterns if re.search(p, prompt, re.IGNORECASE)]
+    
     # Calculate anomaly score (number of triggered detectors)
     anomaly_flags = [
         results['rules_and_roleplay'],
         results['color_change_code'],
         len(results['nlp_outliers']) > 0,
         len(results['length_outliers']) > 0,
-        len(results['word_frequency_outliers']) > 0
+        len(results['word_frequency_outliers']) > 0,
+        len(results['keywords_found']) > 0,
+        len(results['patterns_found']) > 0
     ]
     results['anomaly_score'] = sum(anomaly_flags)
     results['is_anomalous'] = results['anomaly_score'] >= 2  # Threshold: 2+ detectors

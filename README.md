@@ -1,4 +1,4 @@
-# 🔒 Spectra AI: Anomalous Prompt Detection System
+# Spectra AI: Anomalous Prompt Detection System
 
 **Detecting malicious prompts using Linear Algebra, Probability Theory, and Bayesian Analysis**
 
@@ -8,22 +8,22 @@
 
 ---
 
-## 🎯 Project Overview
+## Project Overview
 
 This project implements a **multi-layered anomaly detection system** for identifying malicious or anomalous prompts submitted to Large Language Models (LLMs). It combines rigorous mathematical methods with practical rule-based detectors to provide robust protection against prompt injection attacks, jailbreaks, and other adversarial manipulations.
 
 ### Key Features
 
-- ✅ **Statistical Anomaly Detection** using Mahalanobis distance in embedding space
-- ✅ **Chi-Square Hypothesis Testing** for principled probability-based detection
-- ✅ **Bayesian Posterior Estimation** for calibrated risk assessment
-- ✅ **Rule-Based Text Detectors** adapted from [LLM-Anomalous-Prompt-Detector](https://github.com/RichardAragon/LLM-Anomalous-Prompt-Detector)
-- ✅ **Ensemble Detection** combining statistical and pattern-based methods
-- ✅ **Comprehensive Visualization** with PCA, t-SNE, ROC curves, and confusion matrices
+- **Statistical Anomaly Detection** using Mahalanobis distance in embedding space
+- **Chi-Square Hypothesis Testing** for principled probability-based detection
+- **Bayesian Posterior Estimation** for calibrated risk assessment
+- **Rule-Based Text Detectors** adapted from [LLM-Anomalous-Prompt-Detector](https://github.com/RichardAragon/LLM-Anomalous-Prompt-Detector)
+- **Ensemble Detection** combining statistical and pattern-based methods
+- **Comprehensive Visualization** with PCA, t-SNE, ROC curves, and confusion matrices
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 spectra-ai-anomaly-detection/
@@ -49,7 +49,7 @@ spectra-ai-anomaly-detection/
 
 ---
 
-## 🧠 Mathematical Methods
+## Mathematical Methods
 
 ### 1. Linear Algebra: Mahalanobis Distance
 
@@ -85,7 +85,7 @@ Incorporates:
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -120,9 +120,17 @@ Or in VS Code:
 2. Select Python kernel
 3. Click "Run All"
 
+### Launch the Streamlit Demo
+
+```bash
+streamlit run streamlit_app.py
+```
+
+The web console provides interactive access to the one-class, two-class, text-based, and hybrid detectors. Use the sidebar to pick a model, set Bayesian priors, and review detailed anomaly signals.
+
 ---
 
-## 📊 Results Summary
+## Results Summary
 
 The ensemble detector (combining statistical + text-based methods) achieves:
 
@@ -136,7 +144,7 @@ Results may vary depending on the synthetic dataset generated.
 
 ---
 
-## 🛡️ Detection Methods
+## Detection Methods
 
 ### Statistical Methods
 
@@ -159,7 +167,7 @@ Combines methods using logical OR: flag if **ANY** detector triggers.
 
 ---
 
-## 📈 Visualizations Generated
+## Visualizations Generated
 
 The notebook generates the following plots (saved to `data/`):
 
@@ -174,7 +182,7 @@ The notebook generates the following plots (saved to `data/`):
 
 ---
 
-## 🔬 Technical Details
+## Technical Details
 
 ### Embedding Model
 
@@ -198,7 +206,7 @@ The notebook generates the following plots (saved to `data/`):
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 1. **High-Dimensional Instability**: Covariance estimation challenging in 384D space
 2. **Adversarial Evasion**: Sophisticated attackers may craft undetectable prompts
@@ -208,7 +216,7 @@ The notebook generates the following plots (saved to `data/`):
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 ### Short-Term
 
@@ -226,7 +234,7 @@ The notebook generates the following plots (saved to `data/`):
 
 ---
 
-## 📚 Dependencies
+## Dependencies
 
 Core libraries:
 - `numpy>=1.21.0`
@@ -243,7 +251,7 @@ See `requirements.txt` for complete list.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **LLM-Anomalous-Prompt-Detector** by Richard Aragon for rule-based detection methods
 - **SentenceTransformers** library for state-of-the-art embeddings
@@ -251,7 +259,7 @@ See `requirements.txt` for complete list.
 
 ---
 
-## 📖 References
+## References
 
 1. Mahalanobis, P. C. (1936). "On the generalized distance in statistics"
 2. Bishop, C. M. (2006). "Pattern Recognition and Machine Learning"
@@ -261,13 +269,13 @@ See `requirements.txt` for complete list.
 
 ---
 
-## 📝 License
+## License
 
 MIT License - See LICENSE file for details
 
 ---
 
-## 👤 Author
+## Author
 
 **AI Security Researcher**  
 Spectra AI Mini Challenge - Option 5  
@@ -275,7 +283,7 @@ October 2025
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please:
 1. Fork the repository
@@ -285,10 +293,10 @@ Contributions welcome! Please:
 
 ---
 
-## 📧 Contact
+## Contact
 
 For questions or feedback about this project, please open an issue on GitHub.
 
 ---
 
-**🎉 Ready to detect anomalous prompts!**
+**Project maintained by the Spectra AI anomaly detection team.**

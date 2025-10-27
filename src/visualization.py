@@ -25,7 +25,7 @@ plt.rcParams['figure.dpi'] = 100
 def plot_embeddings_pca(embeddings: np.ndarray,
                         labels: np.ndarray,
                         title: str = "PCA Projection of Embeddings",
-                        save_path: Optional[str] = None) -> plt.Figure:
+                        output_path: Optional[str] = None) -> plt.Figure:
     """
     Create 2D PCA scatter plot of embeddings colored by labels.
     
@@ -36,7 +36,7 @@ def plot_embeddings_pca(embeddings: np.ndarray,
         embeddings: Array of shape (n_samples, n_features)
         labels: Array of shape (n_samples,) with 0=normal, 1=anomaly
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -80,8 +80,8 @@ def plot_embeddings_pca(embeddings: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
@@ -90,7 +90,7 @@ def plot_embeddings_tsne(embeddings: np.ndarray,
                          labels: np.ndarray,
                          title: str = "t-SNE Projection of Embeddings",
                          perplexity: int = 30,
-                         save_path: Optional[str] = None) -> plt.Figure:
+                         output_path: Optional[str] = None) -> plt.Figure:
     """
     Create 2D t-SNE scatter plot of embeddings colored by labels.
     
@@ -102,7 +102,7 @@ def plot_embeddings_tsne(embeddings: np.ndarray,
         labels: Array of shape (n_samples,) with 0=normal, 1=anomaly
         title: Plot title
         perplexity: t-SNE perplexity parameter (5-50 typical)
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -142,8 +142,8 @@ def plot_embeddings_tsne(embeddings: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
@@ -152,7 +152,7 @@ def plot_distance_distribution(distances: np.ndarray,
                                labels: np.ndarray,
                                threshold: Optional[float] = None,
                                title: str = "Mahalanobis Distance Distribution",
-                               save_path: Optional[str] = None) -> plt.Figure:
+                               output_path: Optional[str] = None) -> plt.Figure:
     """
     Plot histogram of Mahalanobis distances separated by true labels.
     
@@ -161,7 +161,7 @@ def plot_distance_distribution(distances: np.ndarray,
         labels: True labels (0=normal, 1=anomaly)
         threshold: Optional detection threshold to display
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -205,8 +205,8 @@ def plot_distance_distribution(distances: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
@@ -215,7 +215,7 @@ def plot_chi2_probabilities(probabilities: np.ndarray,
                             labels: np.ndarray,
                             significance_level: float = 0.01,
                             title: str = "Chi-Square Probability Distribution",
-                            save_path: Optional[str] = None) -> plt.Figure:
+                            output_path: Optional[str] = None) -> plt.Figure:
     """
     Plot histogram of chi-square probabilities with significance threshold.
     
@@ -224,7 +224,7 @@ def plot_chi2_probabilities(probabilities: np.ndarray,
         labels: True labels (0=normal, 1=anomaly)
         significance_level: Detection significance level (e.g., 0.01)
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -261,8 +261,8 @@ def plot_chi2_probabilities(probabilities: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
@@ -271,7 +271,7 @@ def plot_confusion_matrix(y_true: np.ndarray,
                          y_pred: np.ndarray,
                          labels: List[str] = ['Normal', 'Anomaly'],
                          title: str = "Confusion Matrix",
-                         save_path: Optional[str] = None) -> plt.Figure:
+                         output_path: Optional[str] = None) -> plt.Figure:
     """
     Plot confusion matrix heatmap.
     
@@ -280,7 +280,7 @@ def plot_confusion_matrix(y_true: np.ndarray,
         y_pred: Predicted labels
         labels: Label names
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -301,8 +301,8 @@ def plot_confusion_matrix(y_true: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
@@ -310,7 +310,7 @@ def plot_confusion_matrix(y_true: np.ndarray,
 def plot_roc_curve(y_true: np.ndarray,
                   y_scores: np.ndarray,
                   title: str = "ROC Curve",
-                  save_path: Optional[str] = None) -> plt.Figure:
+                  output_path: Optional[str] = None) -> plt.Figure:
     """
     Plot ROC (Receiver Operating Characteristic) curve.
     
@@ -318,7 +318,7 @@ def plot_roc_curve(y_true: np.ndarray,
         y_true: True binary labels
         y_scores: Anomaly scores (higher = more anomalous)
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
@@ -345,32 +345,34 @@ def plot_roc_curve(y_true: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
 
 
 def plot_covariance_heatmap(covariance_matrix: np.ndarray,
+                           max_dims: int = 50,
                            title: str = "Covariance Matrix Heatmap",
-                           save_path: Optional[str] = None) -> plt.Figure:
+                           output_path: Optional[str] = None) -> plt.Figure:
     """
     Plot heatmap of covariance matrix.
     
     Args:
         covariance_matrix: Square covariance matrix
+        max_dims: Maximum dimensions to display (default 50)
         title: Plot title
-        save_path: Optional path to save figure
+        output_path: Optional path to save figure
         
     Returns:
         Matplotlib figure
     """
     fig, ax = plt.subplots(figsize=(10, 8))
     
-    # Only show first 50x50 if matrix is too large
-    if covariance_matrix.shape[0] > 50:
-        covariance_matrix = covariance_matrix[:50, :50]
-        title += " (first 50 dimensions)"
+    # Only show first max_dims x max_dims if matrix is too large
+    if covariance_matrix.shape[0] > max_dims:
+        covariance_matrix = covariance_matrix[:max_dims, :max_dims]
+        title += f" (first {max_dims} dimensions)"
     
     sns.heatmap(covariance_matrix, cmap='coolwarm', center=0, ax=ax,
                square=True, cbar_kws={'label': 'Covariance'})
@@ -381,7 +383,7 @@ def plot_covariance_heatmap(covariance_matrix: np.ndarray,
     
     plt.tight_layout()
     
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight')
     
     return fig
